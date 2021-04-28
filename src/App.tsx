@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Board } from './pages/Board/Board';
+import Board from './pages/Board/Board';
 import Home from './pages/Home/Home';
 
 function App(): ReactElement {
@@ -9,12 +9,8 @@ function App(): ReactElement {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/board">
-            <Board />
-          </Route>
+          <Route path="/board/:id" component={Board} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </BrowserRouter>
     </div>
