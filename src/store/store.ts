@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducer';
 
 import { BoardsState } from './modules/boards/reducer';
@@ -17,7 +18,7 @@ const initialState: AppState = {
   user: { user: [] },
 };
 
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer, initialState, composeWithDevTools());
 
 export const asyncDispatch = store.dispatch;
 export default store;
