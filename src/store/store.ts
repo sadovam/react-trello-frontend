@@ -1,5 +1,6 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import rootReducer from './reducer';
 
 import { BoardsState } from './modules/boards/reducer';
@@ -18,7 +19,7 @@ const initialState: AppState = {
   user: { user: [] },
 };
 
-const store = createStore(rootReducer, initialState, composeWithDevTools());
+const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
 
 export const asyncDispatch = store.dispatch;
 export default store;

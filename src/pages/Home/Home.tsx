@@ -36,6 +36,10 @@ class Home extends React.Component<PropsType, Record<string, never>> {
   }
 }
 
+// (state) => ({
+//   ...state.boards,
+// });
+
 const mapStateToProps = (state: AppState): IBoard[] => ({ ...state.boards.boards });
 
 export default connect(mapStateToProps, { getBoards })(Home);
