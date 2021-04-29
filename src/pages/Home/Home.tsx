@@ -4,21 +4,22 @@ import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
 import { getBoards } from '../../store/modules/boards/actions';
 import { AppState } from '../../store/store';
-import { BoardsState } from '../../store/modules/boards/reducer';
+import { IBoard } from '../../common/interfaces/interfaces';
 
 type PropsType = {
   getBoards: () => Promise<void>;
+  boards: IBoard[];
 };
 
-class Home extends React.Component<PropsType, BoardsState> {
+class Home extends React.Component<PropsType, Record<string, never>> {
   async componentDidMount(): Promise<void> {
     // eslint-disable-next-line react/destructuring-assignment
     await this.props.getBoards();
   }
 
   makeBoards(): React.ReactElement[] {
-    const { boards } = this.state || { boards: [{ title: 'Your trello is empty. Create first board!', id: 0 }] };
-    return boards.map((board) => (
+    const { boards } = this.props;
+    return boards?.map((board) => (
       <Link to={`/board/${board.id}`}>
         <Board key={board.id} title={board.title} />
       </Link>
@@ -35,6 +36,10 @@ class Home extends React.Component<PropsType, BoardsState> {
   }
 }
 
-const mapStateToProps = (state: AppState): BoardsState => state.boards;
+// (state) => ({
+//   ...state.boards,
+// });
+
+const mapStateToProps = (state: AppState): IBoard[] => ({ ...state.boards.boards });
 
 export default connect(mapStateToProps, { getBoards })(Home);
